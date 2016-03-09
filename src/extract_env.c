@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_execute.c                                       :+:      :+:    :+:   */
+/*   extract_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/03 12:29:17 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/09 18:04:37 by tpayen           ###   ########.fr       */
+/*   Created: 2016/03/09 15:47:33 by tpayen            #+#    #+#             */
+/*   Updated: 2016/03/09 17:28:33 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		sh_execute(t_list *envlst, char **args)
+t_list	*extract_env(char **envp)
 {
-	if (args[0] == NULL)
-		return (1);
-	else if (ft_strcmp(args[0], "exit") == 0)
-		return (0);
-	else if (ft_strcmp(args[0], "cd") == 0)
-		return (ft_cd(args));
-	else if (ft_strcmp(args[0], "pwd") == 0)
-		return (ft_pwd(envlst));
-	else if (ft_strcmp(args[0], "env") == 0)
-		return (ft_env(envlst));
-	/*else
-		sh_launch(args);*/
-	return (1);
+	t_list	*lst;
+	t_env	env;
+	char	*chr;
+
+	lst = NULL;
+	while (envp && *envp)
+	{
+		chr = ft_strchr(*envp, '=');
+		env.key = ft_strsub(*envp, 0, chr - *envp);
+		env.value = ft_strdup(chr + 1);
+		ft_lstpush(&lst, ft_lstnew(&env, sizeof(t_env)));
+		envp++;
+	}
+	return (lst);
 }
