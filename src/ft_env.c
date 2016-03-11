@@ -6,18 +6,28 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:01:48 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/09 18:05:26 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/11 17:13:42 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		ft_env(t_list *envlst)
+static int	err_ft_env(char *s)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(s, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+	return (1);
+}
+
+int		ft_env(t_list *envlst, char **args)
 {
 	t_list	*tmp;
 	t_env	*env;
 
 	tmp = envlst;
+	if (args[1] != NULL)
+		return (err_ft_env(args[1]));
 	while (tmp)
 	{
 		env = (t_env *)tmp->content;

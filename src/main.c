@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:20:22 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/10 18:09:29 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/11 21:41:43 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	main(int ac, char **av, char **envp)
 	envlst = extract_env(envp);
 	while (status)
 	{
-		ft_putstr("$> ");
+		prompt(envlst);
+		//ft_putstr("$> ");
 		if (get_next_line(0, &line) == -1)
 			exit(EXIT_FAILURE);
 		args = ft_strsplit(line, ' ');

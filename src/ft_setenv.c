@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:35:27 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/10 16:49:46 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/11 20:59:57 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,9 @@ static int	err_setenv(void)
 
 int			ft_setenv(t_list *envlst, char **args)
 {
-	t_env	*env;
-
 	if (args[1] == NULL || args[2] == NULL)
 		return (err_setenv());
-	if ((env = find_env(envlst, args[1])) != NULL)
-	{
-		free(env->value);
-		env->value = ft_strdup(args[2]);
-	}
-	else
+	if (update_env(envlst, args[1], args[2]) == 0)
 		add_env(&envlst, args[1], args[2]);
 	return (1);
 }
