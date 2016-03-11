@@ -6,7 +6,7 @@
 #    By: tpayen <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 11:25:21 by tpayen            #+#    #+#              #
-#*   Updated: 2016/03/11 21:33:41 by tpayen           ###   ########.fr       *#
+#*   Updated: 2016/03/12 00:09:56 by tpayen           ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC_FILES =	main.c			\
 			ft_setenv.c		\
 			ft_unsetenv.c	\
 			prompt.c		\
+			sh_launch.c		\
+			export_env.c	\
 
 DIRS = $(OBJDIR)
 

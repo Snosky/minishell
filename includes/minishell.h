@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:22:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/11 22:04:14 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/12 00:20:28 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <dirent.h>
+# include <sys/wait.h>
 
 typedef struct	s_env
 {
@@ -35,5 +36,7 @@ int		ft_pwd(t_list *envlst);
 int		ft_env(t_list *envlst, char **args);
 int		ft_setenv(t_list *envlst, char **args);
 int		ft_unsetenv(t_list **envlst, char **args);
+int		sh_launch(t_list *envlst, char **args);
+char	**export_env(t_list *envlst);
 
 #endif
