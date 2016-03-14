@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:47:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/12 00:22:46 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/14 17:55:58 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ static int	err_launch(char *exec)
 	return (1);
 }
 
-int			sh_launch(t_list *envlst, char **args)
+int		sh_launch(t_list *envlst, char **args)
 {
-	pid_t	pid;
-	pid_t	wpid;
+	pid_t	father;
 	char	*exec_path;
-	int		status;
 
-	status = 42;
 	exec_path = find_exec_path(find_env(envlst, "PATH")->value, args[0]);
 	if (exec_path == NULL)
-		return (err_launch(args[0]));
-	pid = fork();
-	if (pid == 0)
 	{
-		if (execve(exec_path, args++, export_env(envlst)) == -1)
-			return (0);
+		err_launch(args[0]);
+		return (1);
 	}
-	else if (pid < 0)
-		return (0);
-	else
+	father = fork();
+	if (father > 0)
+		waitpid(father, NULL, 0);
+	if (!father)
 	{
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-			wpid = waitpid(pid, &status, WUNTRACED);
+		signal(SIGINT, SIG_DFL);
+		if (execve(exec_path, args++, export_env(envlst)) < 0)
+		{
+			ft_putstr_fd("minishell: exec format error: ", 2);
+			ft_putendl_fd(exec_path, 2);
+			exit(2);
+		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:50:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/11 17:10:16 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/14 18:46:27 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ft_unsetenv(t_list **envlst, char **args)
 	env = (t_env *)tmp->content;
 	if (ft_strcmp(env->key, args[1]) == 0)
 	{
-		*envlst = tmp->next;
+		*envlst = (*envlst)->next;
 		ft_lstdelone(&tmp, delete_env);
 	}
 	else

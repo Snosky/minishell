@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 12:37:26 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/13 00:03:39 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/14 18:26:15 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 static int	test_pwd(char *pwd)
 {
 	DIR		*dir;
+
+	ft_putstr("\nTest_pwd :");
+	ft_putstr(pwd);
 
 	if ((dir = opendir(pwd)) == NULL)
 		return (0);
@@ -67,19 +70,20 @@ int	ft_cd(t_list *envlst, char **args)
 		path = ft_strsub(args[1], 1, ft_strlen(args[1]) - 1);
 		path = ft_strjoin(find_env(envlst, "HOME")->value, path);
 		args[1] = ft_strdup(path);
-	}
+	}		
 	else if (args[1][0] == '-')
 		args[1] = ft_strdup(find_env(envlst, "OLDPWD")->value);
 	else if (ft_strcmp(args[1], ".") == 0)
 		return (1);
 	else if (ft_strcmp(args[1], "..") == 0)
 		args[1] = get_parent_dir(envlst);
-	else
+	else if (args[1][0] != '/')
 		args[1] = ft_strjoin(find_env(envlst, "PWD")->value, ft_strjoin("/", args[1]));
 	if (test_pwd(args[1]))
 	{
 		update_env(envlst, "OLDPWD", find_env(envlst, "PWD")->value);
 		update_env(envlst, "PWD", args[1]);
+		chdir(args[1]);
 	}
 	return (1);
 }
