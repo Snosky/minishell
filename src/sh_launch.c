@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:47:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/14 17:55:58 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/15 16:20:49 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static char	*find_exec_path(char *paths, char *exec)
 			return (tmp);
 		apth++;
 	}
+	if (access(exec, F_OK) == 0)
+		return (exec);
 	return (NULL);
 } 
 

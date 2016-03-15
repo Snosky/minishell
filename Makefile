@@ -6,7 +6,7 @@
 #    By: tpayen <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 11:25:21 by tpayen            #+#    #+#              #
-#*   Updated: 2016/03/12 00:09:56 by tpayen           ###   ########.fr       *#
+#*   Updated: 2016/03/15 16:42:37 by tpayen           ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,9 @@ SRC_FILES =	main.c			\
 			prompt.c		\
 			sh_launch.c		\
 			export_env.c	\
+			ft_cd_replace.c	\
+			test_pwd.c		\
+			clear_path.c	\
 
 DIRS = $(OBJDIR)
 
@@ -44,10 +47,10 @@ all: directories $(EXEC)
 
 $(EXEC): $(SRC_OBJ)
 	@($(MAKE) -C $(LIBFTDIR))
-	$(CC) -o $@ $^ $(LIBS) 
+	$(CC) -o $@ $^ $(LIBS) -g
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
-	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDES)
+	$(CC) -o $@ -c $< $(CFLAGS) $(INCLUDES) -g
 
 .PHONY: directories re clean fclean
 

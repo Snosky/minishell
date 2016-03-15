@@ -6,25 +6,12 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 12:37:26 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/14 18:26:15 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/15 19:22:19 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static int	test_pwd(char *pwd)
-{
-	DIR		*dir;
-
-	ft_putstr("\nTest_pwd :");
-	ft_putstr(pwd);
-
-	if ((dir = opendir(pwd)) == NULL)
-		return (0);
-	closedir(dir);
-	return (1);
-}
-
+/*
 static char	*get_parent_dir(t_list *envlst)
 {
 	char	**tmp;
@@ -44,46 +31,45 @@ static char	*get_parent_dir(t_list *envlst)
 	}
 	return (ft_strjoin("/", ft_strimp(tmp, "/")));
 }
+*/
+static void ft_cd_do(t_list *envlst, char *path)
+{
+	if (test_pwd(path))
+	{
+		path = clear_path(path);
+		update_env(envlst, "OLDPWD", find_env(envlst, "PWD")->value);
+		update_env(envlst, "PWD", path);
+		chdir(path);
+	}
+	else
+	{
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+		ft_putendl_fd(path, 2);
+	}
+}
 
 int	ft_cd(t_list *envlst, char **args)
 {
 	char	*path;
 
+	path = NULL;
 	if (args[1] == NULL)
-		args[1] = ft_strdup(find_env(envlst, "HOME")->value);
-	else if (args[2] != NULL)
-	{
-		if (args[3] != NULL)
-		{
-			ft_putendl_fd("cd : too many arguments", 2);
-			return (1);
-		}
-		if ((args[1] = ft_strreplace(args[1], args[2], find_env(envlst, "PWD")->value)) == NULL)
-		{
-			ft_putstr_fd("cd: string not in pwd: ", 2);
-			ft_putendl_fd(args[1], 2);
-			return (1);
-		}
-	}
-	else if (args[1][0] == '~')
-	{
-		path = ft_strsub(args[1], 1, ft_strlen(args[1]) - 1);
-		path = ft_strjoin(find_env(envlst, "HOME")->value, path);
-		args[1] = ft_strdup(path);
-	}		
-	else if (args[1][0] == '-')
-		args[1] = ft_strdup(find_env(envlst, "OLDPWD")->value);
-	else if (ft_strcmp(args[1], ".") == 0)
+		path = ft_strdup(find_env(envlst, "HOME")->value);
+	else if (args[2] != NULL && (path = ft_cd_replace(envlst, args)) == NULL)
 		return (1);
-	else if (ft_strcmp(args[1], "..") == 0)
-		args[1] = get_parent_dir(envlst);
-	else if (args[1][0] != '/')
-		args[1] = ft_strjoin(find_env(envlst, "PWD")->value, ft_strjoin("/", args[1]));
-	if (test_pwd(args[1]))
-	{
-		update_env(envlst, "OLDPWD", find_env(envlst, "PWD")->value);
-		update_env(envlst, "PWD", args[1]);
-		chdir(args[1]);
-	}
+	else if (args[1][0] == '~' && args[2] == NULL)
+		path = ft_strreplace("~", find_env(envlst, "HOME")->value, args[1]);
+	else if (args[1][0] == '-' && args[2] == NULL)
+		path = ft_strdup(find_env(envlst, "OLDPWD")->value);
+	/*else if (ft_strcmp(args[1], ".") == 0 && args[2] == NULL)
+		return (1);
+	else if (ft_strcmp(args[1], "..") == 0 && args[2] == NULL)
+		path = get_parent_dir(envlst);*/
+	else if (args[1][0] != '/' && args[2] == NULL)
+		path = ft_strjoin(find_env(envlst, "PWD")->value, ft_strjoin("/", args[1]));
+	else if (args[1][0] == '/' && args[2] == NULL)
+		path = ft_strdup(args[1]);
+	ft_cd_do(envlst, path);
+	free(path);
 	return (1);
 }
