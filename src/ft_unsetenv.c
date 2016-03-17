@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:50:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/14 18:46:27 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:38:15 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ static void	delete_env(void *content, size_t size)
 	free(((t_env *)content)->value);
 }
 
+static int	err_unsetenv(void)
+{
+	ft_putendl_fd("minishell: expected argument to \"unsetenv\"", 2);
+	ft_putendl_fd("usage: unsetenv <key>", 2);
+	return (1);
+}
+
 int		ft_unsetenv(t_list **envlst, char **args)
 {
 	t_list	*tmp;
@@ -27,6 +34,8 @@ int		ft_unsetenv(t_list **envlst, char **args)
 
 	tmp = *envlst;
 	env = (t_env *)tmp->content;
+	if (!args[1])
+		return (err_unsetenv());
 	if (ft_strcmp(env->key, args[1]) == 0)
 	{
 		*envlst = (*envlst)->next;

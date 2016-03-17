@@ -6,25 +6,28 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:47:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/15 16:20:49 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:24:49 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*find_exec_path(char *paths, char *exec)
+static char	*find_exec_path(t_env *path, char *exec)
 {
 	char	**apth;
 	char	*tmp;
 
-	apth = ft_strsplit(paths, ':');
-	while (*apth)
+	if (path)
 	{
-		tmp = ft_strjoin(*apth, "/");
-		tmp = ft_strjoin(tmp, exec);
-		if (access(tmp, F_OK) == 0)
-			return (tmp);
-		apth++;
+		apth = ft_strsplit(path->value, ':');
+		while (*apth)
+		{
+			tmp = ft_strjoin(*apth, "/");
+			tmp = ft_strjoin(tmp, exec);
+			if (access(tmp, F_OK) == 0)
+				return (tmp);
+			apth++;
+		}
 	}
 	if (access(exec, F_OK) == 0)
 		return (exec);
@@ -43,7 +46,8 @@ int		sh_launch(t_list *envlst, char **args)
 	pid_t	father;
 	char	*exec_path;
 
-	exec_path = find_exec_path(find_env(envlst, "PATH")->value, args[0]);
+	
+	exec_path = find_exec_path(find_env(envlst, "PATH"), args[0]);
 	if (exec_path == NULL)
 	{
 		err_launch(args[0]);

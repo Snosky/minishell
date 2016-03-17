@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:35:27 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/11 20:59:57 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:36:09 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	err_setenv(void)
 {
 	ft_putendl_fd("minishell: expected argument to \"setenv\"", 2);
-	ft_putendl_fd("ex: setenv <key> <value>", 2);
+	ft_putendl_fd("usage: setenv <key> <value>", 2);
 	return (1);
 }
 

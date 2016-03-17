@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:01:48 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/11 17:13:42 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 15:56:48 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ int		ft_env(t_list *envlst, char **args)
 	while (tmp)
 	{
 		env = (t_env *)tmp->content;
-		ft_putstr(env->key);
-		ft_putchar('=');
-		ft_putendl(env->value);
+		if (env->key && env->value)
+		{
+			ft_putstr(env->key);
+			ft_putchar('=');
+			ft_putendl(env->value);
+		}
 		tmp = tmp->next;
 	}
 	return (1);

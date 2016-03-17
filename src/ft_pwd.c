@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 15:44:30 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/09 17:33:47 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:14:48 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int		ft_pwd(t_list *envlst)
 {
-	ft_putendl(find_env(envlst, "PWD")->value);
+	t_env	*pwd;
+
+	pwd = NULL;
+	if ((pwd = find_env(envlst, "PWD")))
+		ft_putendl(pwd->value);
+	else
+		ft_putendl_fd("minishell: env PWD not define", 2);
 	return (1);
 }

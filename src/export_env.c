@@ -6,7 +6,7 @@
 /*   By: tpayen <tpayen@studio.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 00:04:07 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/14 18:13:12 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 15:58:11 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ char	**export_env(t_list *envlst)
 	while (tmp)
 	{
 		env = (t_env *)tmp->content;
-		stmp = ft_strjoin(env->key, "=");
-		ret[i] = ft_strdup(ft_strjoin(stmp, env->value));
-		i++;
+		if (env->key && env->value)
+		{
+			stmp = ft_strjoin(env->key, "=");
+			ret[i] = ft_strdup(ft_strjoin(stmp, env->value));
+			i++;
+		}
 		tmp = tmp->next;
 	}
 	free(stmp);

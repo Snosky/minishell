@@ -6,7 +6,7 @@
 #    By: tpayen <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/03 11:25:21 by tpayen            #+#    #+#              #
-#*   Updated: 2016/03/15 16:42:37 by tpayen           ###   ########.fr       *#
+#*   Updated: 2016/03/17 16:50:18 by tpayen           ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ clean:
 	@($(MAKE) -C $(LIBFTDIR) $@)
 
 fclean: clean
-	rm -rf $(EXE)
+	rm -rf $(EXEC)
 	@($(MAKE) -C $(LIBFTDIR) $@)
 
 directories: $(DIRS)

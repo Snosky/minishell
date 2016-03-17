@@ -6,7 +6,7 @@
 /*   By: tpayen <tpayen@studio.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 21:30:06 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/12 16:54:50 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/17 15:54:39 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 void	prompt(t_list *envlst)
 {
-	char	*pwd;
-	char	*home;
+	t_env	*pwd;
+	t_env	*home;
 
-	pwd = ft_strdup(find_env(envlst, "PWD")->value);
-	home = ft_strdup(find_env(envlst, "HOME")->value);
+	pwd = find_env(envlst, "PWD");
+	home = find_env(envlst, "HOME");
 	ft_putstr("\e[0;36m");
 	ft_putchar('[');
-	if (ft_strstr(pwd, home))
+	if (pwd && home && ft_strstr(pwd->value, home->value))
 	{
 		ft_putchar('~');
-		ft_putstr(ft_strstr(pwd, home) + ft_strlen(home));
+		ft_putstr(ft_strstr(pwd->value, home->value) + ft_strlen(home->value));
 	}
+	else if (pwd)
+		ft_putstr(pwd->value);
 	else
-		ft_putstr(pwd);
+		ft_putstr("minishell");
 	ft_putchar(']');
 	ft_putstr("\e[1;32m");
 	ft_putchar('$');
