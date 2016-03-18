@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 12:37:26 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/17 16:35:03 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/18 18:44:43 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static void ft_cd_do(t_list *envlst, char *path)
 	{
 		chdir(path);
 		len = ft_strlen(path);
-		//buf = getcwd(buf, len);
-		//if (!access(buf, F_OK))
+		buf = getcwd(buf, len);
+		if (!buf)
 			buf = clear_path(path);
-		update_env(envlst, "OLDPWD", find_env(envlst, "PWD")->value);
+		if (find_env(envlst, "PWD"))
+			update_env(envlst, "OLDPWD", find_env(envlst, "PWD")->value);
 		update_env(envlst, "PWD", buf);
 	}
 	else
@@ -53,6 +54,8 @@ int	ft_cd(t_list *elst, char **ags)
 	else if (ags[1][0] != '/' && !ags[2] && (e = find_env(elst, "PWD")))
 		path = ft_strjoin(e->value, ft_strjoin("/", ags[1]));
 	else if (ags[1][0] == '/' && !ags[2])
+		path = ft_strdup(ags[1]);
+	else if (ags[1])
 		path = ft_strdup(ags[1]);
 	ft_cd_do(elst, path);
 	free(path);
