@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:47:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/17 16:24:49 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/19 17:37:48 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*find_exec_path(t_env *path, char *exec)
 	if (access(exec, F_OK) == 0)
 		return (exec);
 	return (NULL);
-} 
+}
 
 static int	err_launch(char *exec)
 {
@@ -41,12 +41,11 @@ static int	err_launch(char *exec)
 	return (1);
 }
 
-int		sh_launch(t_list *envlst, char **args)
+int			sh_launch(t_list *envlst, char **args)
 {
 	pid_t	father;
 	char	*exec_path;
 
-	
 	exec_path = find_exec_path(find_env(envlst, "PATH"), args[0]);
 	if (exec_path == NULL)
 	{

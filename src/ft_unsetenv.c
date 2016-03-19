@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:50:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/17 16:38:15 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/19 18:12:30 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,22 @@ static int	err_unsetenv(void)
 	return (1);
 }
 
-int		ft_unsetenv(t_list **envlst, char **args)
+int			ft_unsetenv(t_list *envlst, char **args)
 {
 	t_list	*tmp;
 	t_list	*flst;
 	t_env	*env;
 
-	tmp = *envlst;
+	tmp = envlst;
 	env = (t_env *)tmp->content;
 	if (!args[1])
 		return (err_unsetenv());
 	if (ft_strcmp(env->key, args[1]) == 0)
 	{
-		*envlst = (*envlst)->next;
-		ft_lstdelone(&tmp, delete_env);
+		tmp = envlst->next;
+		ft_lstdelone(&envlst, delete_env);
 	}
 	else
-	{
 		while (tmp->next)
 		{
 			env = (t_env *)tmp->next->content;
@@ -55,6 +54,5 @@ int		ft_unsetenv(t_list **envlst, char **args)
 			}
 			tmp = tmp->next;
 		}
-	}
 	return (1);
 }

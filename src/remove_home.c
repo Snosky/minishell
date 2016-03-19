@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_pwd.c                                         :+:      :+:    :+:   */
+/*   remove_home.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpayen <tpayen@studio.42.fr>               +#+  +:+       +#+        */
+/*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/15 16:28:25 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/19 16:08:25 by tpayen           ###   ########.fr       */
+/*   Created: 2016/03/19 15:56:26 by tpayen            #+#    #+#             */
+/*   Updated: 2016/03/19 17:59:32 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		test_pwd(char *pwd)
+char	*remove_home(t_list *envlst, char *path)
 {
-	if (!pwd)
-		return (0);
-	pwd = clear_path(pwd);
-	if (access(pwd, F_OK) == 0)
-	{
-		if (access(pwd, X_OK))
-			return (-1);
-		return (1);
-	}
-	return (0);
+	t_env	*home;
+
+	home = find_env(envlst, "HOME");
+	if (path && home && ft_strstr(path, home->value))
+		return (ft_strreplace(home->value, "~", path));
+	else if (path && home)
+		return (path);
+	return (NULL);
 }

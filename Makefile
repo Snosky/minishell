@@ -38,6 +38,7 @@ SRC_FILES =	main.c			\
 			ft_cd_replace.c	\
 			test_pwd.c		\
 			clear_path.c	\
+			remove_home.c	\
 
 DIRS = $(OBJDIR)
 

@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:01:48 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/17 15:56:48 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/19 17:26:54 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	err_ft_env(char *s)
 	return (1);
 }
 
-int		ft_env(t_list *envlst, char **args)
+int			ft_env(t_list *envlst, char **args)
 {
 	t_list	*tmp;
 	t_env	*env;

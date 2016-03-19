@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 12:29:17 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/11 23:53:00 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/19 18:11:48 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int		sh_execute(t_list *envlst, char **args)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		return (0);
 	else if (ft_strcmp(args[0], "cd") == 0)
-		return (ft_cd(envlst, args));
+	{
+		ft_cd(envlst, args);
+		return (1);
+	}
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd(envlst));
 	else if (ft_strcmp(args[0], "env") == 0)
@@ -27,6 +30,6 @@ int		sh_execute(t_list *envlst, char **args)
 	else if (ft_strcmp(args[0], "setenv") == 0)
 		return (ft_setenv(envlst, args));
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
-		return (ft_unsetenv(&envlst, args));
+		return (ft_unsetenv(envlst, args));
 	return (sh_launch(envlst, args));
 }
