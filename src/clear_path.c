@@ -6,7 +6,7 @@
 /*   By: tpayen <tpayen@studio.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 16:39:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/15 19:23:15 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/19 14:27:38 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*clear_back_path(char *pwd)
 			{
 				ret = ft_strjoin(ret, "/");
 				ret = ft_strjoin(ret, split[i]);
+				y = (y <= 0) ? 0 : y - 1;
 			}
 		i += y;
 	}
