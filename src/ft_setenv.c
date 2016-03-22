@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:35:27 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/17 16:36:09 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 14:02:34 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int			ft_setenv(t_list *envlst, char **args)
 {
 	if (args[1] == NULL || args[2] == NULL)
 		return (err_setenv());
-	if (update_env(envlst, args[1], args[2]) == 0)
-		add_env(&envlst, args[1], args[2]);
+	update_env(envlst, args[1], args[2]);
 	return (1);
 }
