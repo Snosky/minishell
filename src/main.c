@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:20:22 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/22 14:15:11 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 15:48:51 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ int	main(int ac, char **av, char **envp)
 		free(args);
 		free(line);
 	}
-	if (status == -1)
-		exit(EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
