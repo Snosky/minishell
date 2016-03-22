@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 12:37:26 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/19 17:59:22 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 13:21:49 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	err_cd_no_file(char *s)
 	ft_putendl_fd(s, 2);
 }
 
-static void err_cd_args(void)
+static void	err_cd_args(void)
 {
 	ft_putendl_fd("usage: cd directory ...", 2);
 }
@@ -53,7 +53,7 @@ static void	ft_cd_do(t_list *envlst, char *path, int show)
 	else if (t == -1)
 		err_cd_perm(remove_home(envlst, path));
 	else
-		err_cd_no_file(remove_home(envlst ,path));
+		err_cd_no_file(remove_home(envlst, path));
 }
 
 void		ft_cd(t_list *lst, char **av)
@@ -71,7 +71,7 @@ void		ft_cd(t_list *lst, char **av)
 	else if (av[2] != NULL && !(path = ft_cd_replace(lst, av)))
 		return ;
 	else if (!av[2] && !ft_strcmp(av[1], "~") && (e = find_env(lst, "HOME")))
-		path = ft_strreplace("~", e->value, av[1]);
+		path = ft_strreplace("~", e->value, av[1], 0);
 	else if (!av[2] && !ft_strcmp(av[1], "-") && (e = find_env(lst, "OLDPWD")))
 	{
 		path = ft_strdup(e->value);

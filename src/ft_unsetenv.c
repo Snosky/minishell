@@ -6,13 +6,13 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:50:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/22 12:47:47 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 13:21:30 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	delete_env(void *content, size_t size)
+static void		delete_env(void *content, size_t size)
 {
 	(void)size;
 	free(((t_env *)content)->key);
