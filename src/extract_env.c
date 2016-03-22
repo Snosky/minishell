@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 15:47:33 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/09 17:28:33 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 12:38:50 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,21 @@ t_list	*extract_env(char **envp)
 {
 	t_list	*lst;
 	t_env	env;
-	char	*chr;
+	char	**tab;
+	int		i;
 
 	lst = NULL;
-	while (envp && *envp)
+	i = 0;
+	while (envp[i])
 	{
-		chr = ft_strchr(*envp, '=');
-		env.key = ft_strsub(*envp, 0, chr - *envp);
-		env.value = ft_strdup(chr + 1);
-		ft_lstpush(&lst, ft_lstnew(&env, sizeof(t_env)));
-		envp++;
+		tab = ft_strsplit(envp[i], '=');
+		if (tab[0] && tab[1])
+		{
+			env.key = ft_strdup(tab[0]);
+			env.value = ft_strdup(tab[1]);
+			ft_lstpush(&lst, ft_lstnew(&env, sizeof(t_env)));
+		}
+		i++;
 	}
 	return (lst);
 }

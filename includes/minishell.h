@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:22:38 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/19 18:11:28 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 12:42:46 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ t_env	*find_env(t_list *envlist, char *key);
 void	add_env(t_list **envlst, char *key, char *value);
 int		update_env(t_list *envlst, char *key, char *value);
 void	prompt(t_list *envlst);
-int		sh_execute(t_list *envlst, char **args);
+int		sh_execute(t_list **envlst, char **args);
 void	ft_cd(t_list *envlst, char **args);
 int		ft_pwd(t_list *envlst);
 int		ft_env(t_list *envlst, char **args);
 int		ft_setenv(t_list *envlst, char **args);
-int		ft_unsetenv(t_list *envlst, char **args);
+//int		ft_unsetenv(t_list **envlst, char **args);
+t_list		*ft_unsetenv(t_list *envlst, char **args);
 int		sh_launch(t_list *envlst, char **args);
 char	**export_env(t_list *envlst);
 char	*ft_cd_replace(t_list *envlst, char **args);

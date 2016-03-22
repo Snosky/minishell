@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:50:39 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/19 18:12:30 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 12:47:47 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,34 @@ static void	delete_env(void *content, size_t size)
 	free(((t_env *)content)->value);
 }
 
-static int	err_unsetenv(void)
+static t_list	*err_unsetenv(t_list *env)
 {
 	ft_putendl_fd("minishell: expected argument to \"unsetenv\"", 2);
 	ft_putendl_fd("usage: unsetenv <key>", 2);
-	return (1);
+	return (env);
 }
 
-int			ft_unsetenv(t_list *envlst, char **args)
+t_list			*ft_unsetenv(t_list *envlst, char **args)
 {
-	t_list	*tmp;
-	t_list	*flst;
-	t_env	*env;
+	t_list	*lst;
+	t_list	*next;
 
-	tmp = envlst;
-	env = (t_env *)tmp->content;
+	lst = NULL;
 	if (!args[1])
-		return (err_unsetenv());
-	if (ft_strcmp(env->key, args[1]) == 0)
+		return (err_unsetenv(envlst));
+	while (envlst)
 	{
-		tmp = envlst->next;
-		ft_lstdelone(&envlst, delete_env);
-	}
-	else
-		while (tmp->next)
+		next = envlst->next;
+		if (ft_strcmp(((t_env *)envlst->content)->key, args[1]))
 		{
-			env = (t_env *)tmp->next->content;
-			if (ft_strcmp(env->key, args[1]) == 0)
-			{
-				flst = tmp->next;
-				tmp->next = tmp->next->next;
-				ft_lstdelone(&flst, delete_env);
-				break ;
-			}
-			tmp = tmp->next;
+			envlst->next = NULL;
+			ft_lstpush(&lst, envlst);
 		}
-	return (1);
+		else
+		{
+			ft_lstdelone(&envlst, delete_env);
+		}
+		envlst = next;
+	}
+	return (lst);
 }

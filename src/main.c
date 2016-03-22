@@ -6,7 +6,7 @@
 /*   By: tpayen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 11:20:22 by tpayen            #+#    #+#             */
-/*   Updated: 2016/03/14 18:47:08 by tpayen           ###   ########.fr       */
+/*   Updated: 2016/03/22 12:43:02 by tpayen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av, char **envp)
 		if (get_next_line(0, &line) == -1)
 			exit(EXIT_FAILURE);
 		args = ft_strsplit(line, ' ');
-		status = sh_execute(envlst, args);
+		status = sh_execute(&envlst, args);
 		free(args);
 		free(line);
 	}
